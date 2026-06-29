@@ -27,7 +27,8 @@ public:
 
 private:
   uint8_t  _pin;
-  float    _vcc, _rl;
+  float    _vcc, _rl ;
+  float _sensitivityGain;
   uint32_t _warmup_ms, _startMs, _lastCalMs;
   uint16_t _cal_samples;
   uint32_t _cal_interval;

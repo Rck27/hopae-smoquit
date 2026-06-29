@@ -14,6 +14,7 @@ void MICS5524::begin() {
   _calSum  = 0.0;
   _calCount = 0;
   _lastCalMs = 0;
+  _sensitivityGain = 1.5;
 }
 
 bool MICS5524::update() {
@@ -71,7 +72,9 @@ float MICS5524::ratio() const {
 float MICS5524::ppm() const {
   float r = ratio();
   if (r < 0.0f) return -1.0f;
-  return 4.4638f * powf(r, -1.1487f);  // kurva datasheet CO
+  // return 4.4638f * powf(r, -1.1487f);  // kurva datasheet CO
+  float raw_ppm = 4.4638f * powf(r, -1.1487f);
+  return raw_ppm * _sensitivityGain;   // default 1.0, naikkan kalau perlu
 }
 
 float MICS5524::rs() const {
